@@ -4,7 +4,7 @@ Hello everyone!
 
 This portfolio has been customized for **Muhammad Nafi Nusron**, an undergraduate Electrical Engineering student at Universitas Negeri Yogyakarta.
 
-**Website:** [https://nafinusroncode.com](https://nafinusroncode.com)
+**Website:** [https://nafinusroncode.github.io](https://nafinusroncode.github.io)
 
 ---
 
@@ -290,7 +290,7 @@ Upload the contents of the `dist/` folder to your hosting provider.
 ## Credits & Contact
 
 **Muhammad Nafi Nusron**  
-Website: [nafinusroncode.com](https://nafinusroncode.com) · GitHub: [nafinusroncode](https://github.com/nafinusroncode) · LinkedIn: [Muhammad Nafi Nusron](https://www.linkedin.com/in/muhammad-nafi-nusron-1a1059381)
+Website: [nafinusroncode.github.io](https://nafinusroncode.github.io) · GitHub: [nafinusroncode](https://github.com/nafinusroncode) · LinkedIn: [Muhammad Nafi Nusron](https://www.linkedin.com/in/muhammad-nafi-nusron-1a1059381)
 
 Thanks to [LottieFiles](https://lottiefiles.com/free-animation/coding-NWhbxMOVgP) and Claude.
 

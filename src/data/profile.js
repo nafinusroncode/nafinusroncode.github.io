@@ -9,8 +9,8 @@ export const profile = {
   semester: 6,
   focus: "Ketenagaan / arus kuat",
   avatar: "/profile-nafi.jpg",
-  siteUrl: "https://nafinusroncode.com",
-  siteLabel: "nafinusroncode.com",
+  siteUrl: "https://nafinusroncode.github.io",
+  siteLabel: "nafinusroncode.github.io",
   contactEmail: "",
   heroTitleLines: ["Electrical", "Engineering"],
   typingWords: [
