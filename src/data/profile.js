@@ -8,7 +8,7 @@ export const profile = {
   department: "Teknik Elektro",
   semester: 6,
   focus: "Ketenagaan / arus kuat",
-  avatar: "/My Profile 2.jpg",
+  avatar: "/profile-nafi.jpg",
   siteUrl: "https://nafinusroncode.com",
   siteLabel: "nafinusroncode.com",
   contactEmail: "",
