@@ -70,7 +70,7 @@ export const portfolioProjects = [
   },
   {
     id: "iot-monitoring-sederhana",
-    Img: "/Animation1.gif",
+    Img: "/Sistem IOT.png",
     Title: "Sistem Monitoring IoT Sederhana",
     Description:
       "Project IoT berbasis mikrokontroler untuk membaca data sensor, mengolah data, dan menampilkan hasil monitoring secara sederhana.",
