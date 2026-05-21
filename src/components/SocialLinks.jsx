@@ -27,8 +27,8 @@ const socialLinks = [
     subText: profile.handles.instagram,
     icon: Instagram,
     url: profile.social.instagram,
-    color: "#E4405F",
-    gradient: "from-[#833AB4] via-[#E4405F] to-[#FCAF45]",
+    color: "#8FB7FF",
+    gradient: "from-[#073F6F] via-[#315589] to-[#8FB7FF]",
   },
   {
     name: "YouTube",
@@ -113,7 +113,7 @@ const SocialLinks = () => {
         className="text-xl font-semibold text-white mb-6 flex items-center gap-2"
         data-aos="fade-down" 
       >
-        <span className="inline-block w-8 h-1 bg-indigo-500 rounded-full"></span>
+        <span className="inline-block w-8 h-1 bg-blue-500 rounded-full"></span>
         Connect With Me
       </h3>
 
