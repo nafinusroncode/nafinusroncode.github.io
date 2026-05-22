@@ -22,7 +22,7 @@ export const profile = {
   heroDescription:
     "Mahasiswa Teknik Elektro Universitas Negeri Yogyakarta yang berfokus pada ketenagaan, elektronika, IoT, dan pengembangan aplikasi.",
   aboutIntro:
-    "Saya adalah mahasiswa undergraduate Teknik Elektro di Universitas Negeri Yogyakarta. Saat ini saya menempuh semester 6 dengan fokus pada bidang ketenagaan atau arus kuat. Saya memiliki basic coding menggunakan Python, JavaScript, C, dan C++, serta sering membuat project rangkaian listrik sederhana, rangkaian elektronika, IoT, dan aplikasi.",
+    "I am an Electrical Engineering student at Yogyakarta State University, currently in my sixth semester with a focus on power systems engineering. I have basic programming skills in Python, JavaScript, C, and C++, and I frequently work on projects involving electrical circuits, electronic circuits, Internet of Things (IoT) systems, and application development. I am highly interested in technology, problem-solving, and developing practical solutions through both hardware and software integration.",
   quote:
     "Mempelajari sistem tenaga, elektronika, dan software lewat simulasi, eksperimen, dan project nyata.",
   programmingLanguages: ["Python", "JavaScript", "C", "C++"],
