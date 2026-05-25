@@ -118,16 +118,16 @@ export const portfolioProjects = [
 export const certificates = [];
 
 export const techStacks = [
-  { icon: null, language: "Python", initials: "PY" },
-  { icon: "javascript.svg", language: "JavaScript", initials: "JS" },
-  { icon: null, language: "C", initials: "C" },
-  { icon: null, language: "C++", initials: "C++" },
-  { icon: null, language: "MATLAB", initials: "MAT" },
-  { icon: null, language: "Multisim", initials: "MS" },
-  { icon: null, language: "Code::Blocks", initials: "CB" },
-  { icon: null, language: "Arduino IDE", initials: "ARD" },
-  { icon: null, language: "VS Code", initials: "VS" },
-  { icon: null, language: "Octave", initials: "OCT" },
-  { icon: null, language: "Word", initials: "W" },
-  { icon: null, language: "Excel", initials: "XL" },
+  { icon: "/tech/python.svg", language: "Python", initials: "PY" },
+  { icon: "/tech/javascript.svg", language: "JavaScript", initials: "JS" },
+  { icon: "/tech/c.svg", language: "C", initials: "C" },
+  { icon: "/tech/cplusplus.svg", language: "C++", initials: "C++" },
+  { icon: "/tech/matlab.svg", language: "MATLAB", initials: "MAT" },
+  { icon: "/tech/multisim.svg", language: "Multisim", initials: "MS" },
+  { icon: "/tech/codeblocks.svg", language: "Code::Blocks", initials: "CB" },
+  { icon: "/tech/arduino.svg", language: "Arduino IDE", initials: "ARD" },
+  { icon: "/tech/vscode.svg", language: "VS Code", initials: "VS" },
+  { icon: "/tech/octave.svg", language: "Octave", initials: "OCT" },
+  { icon: "/tech/word.svg", language: "Word", initials: "W" },
+  { icon: "/tech/excel.svg", language: "Excel", initials: "XL" },
 ];
