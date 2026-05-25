@@ -1,5 +1,5 @@
-import React, { useEffect, memo, useMemo } from "react"
-import { FileText, Code, Award, ArrowUpRight, Sparkles, UserCheck } from "lucide-react"
+import React, { useEffect, memo, useMemo, useState } from "react"
+import { FileText, Code, Award, ArrowUpRight, Sparkles, UserCheck, X } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { portfolioProjects, profile } from "../data/profile"
@@ -113,7 +113,59 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
   </div>
 ));
 
+const academicRecordImages = [
+  "/indeks-prestasi-1.jpeg",
+  "/indeks-prestasi-2.jpeg",
+];
+
+const AcademicRecordModal = memo(({ open, onClose }) => {
+  if (!open) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-md flex items-center justify-center px-4 py-6"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="academic-record-title"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#061A2F] border border-white/10 shadow-2xl"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-white/10 bg-[#061A2F]/95 px-5 py-4 backdrop-blur-xl">
+          <h3 id="academic-record-title" className="text-xl sm:text-2xl font-bold text-white">
+            Indeks Prestasi
+          </h3>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full p-2 text-gray-300 transition hover:bg-white/10 hover:text-white"
+            aria-label="Close academic record"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+
+        <div className="space-y-5 p-4 sm:p-6">
+          {academicRecordImages.map((image, index) => (
+            <img
+              key={image}
+              src={image}
+              alt={`Indeks Prestasi ${index + 1}`}
+              className="w-full rounded-xl border border-white/10 bg-white object-contain shadow-lg"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+});
+
 const AboutPage = () => {
+  const [isAcademicRecordOpen, setIsAcademicRecordOpen] = useState(false);
+
   // Memoized calculations
   const { totalProjects, totalTools, currentSemester } = useMemo(() => {
     const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
@@ -240,15 +292,15 @@ const AboutPage = () => {
       </div>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
-              <a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer" className="w-full lg:w-auto">
               <button 
+                type="button"
+                onClick={() => setIsAcademicRecordOpen(true)}
                 data-aos="fade-up"
                 data-aos-duration="800"
                 className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-[#073F6F] to-[#315589] text-white font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 shadow-lg hover:shadow-xl "
               >
-                <FileText className="w-4 h-4 sm:w-5 sm:h-5" /> LinkedIn Profile
+                <FileText className="w-4 h-4 sm:w-5 sm:h-5" /> Indeks Prestasi
               </button>
-              </a>
               <a href="#Portofolio" className="w-full lg:w-auto">
               <button 
                 data-aos="fade-up"
@@ -272,6 +324,11 @@ const AboutPage = () => {
           </div>
         </a>
       </div>
+
+      <AcademicRecordModal
+        open={isAcademicRecordOpen}
+        onClose={() => setIsAcademicRecordOpen(false)}
+      />
 
       <style jsx>{`
         @keyframes float {
