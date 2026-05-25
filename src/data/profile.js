@@ -124,7 +124,7 @@ export const techStacks = [
   { icon: "/tech/cplusplus.svg", language: "C++", initials: "C++" },
   { icon: "/tech/matlab.svg", language: "MATLAB", initials: "MAT" },
   { icon: "/tech/multisim.svg", language: "Multisim", initials: "MS" },
-  { icon: "/tech/codeblocks.svg", language: "Code Blocks", initials: "CB" },
+  { icon: "/tech/codeblocks.svg", language: "Code::Blocks", initials: "CB" },
   { icon: "/tech/arduino.svg", language: "Arduino IDE", initials: "ARD" },
   { icon: "/tech/vscode.svg", language: "VS Code", initials: "VS" },
   { icon: "/tech/octave.svg", language: "Octave", initials: "OCT" },
