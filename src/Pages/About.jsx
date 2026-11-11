@@ -2,7 +2,8 @@ import React, { useEffect, memo, useMemo, useState } from "react"
 import { FileText, Code, Award, ArrowUpRight, Sparkles, UserCheck, X } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { portfolioProjects, profile } from "../data/profile"
+import { profile } from "../data/profile"
+import { readCachedProjects } from "../utils/projects"
 
 // Memoized Components
 const Header = memo(() => (
@@ -168,8 +169,7 @@ const AboutPage = () => {
 
   // Memoized calculations
   const { totalProjects, totalTools, currentSemester } = useMemo(() => {
-    const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
-    const projectCount = storedProjects.length || portfolioProjects.length;
+    const projectCount = readCachedProjects().length;
 
     return {
       totalProjects: projectCount,

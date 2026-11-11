@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   ArrowLeft,
   ExternalLink,
@@ -18,6 +18,7 @@ import {
 import Swal from "sweetalert2";
 import { toSlug } from "../utils/slug";
 import { profile } from "../data/profile";
+import { findProjectBySlug } from "../utils/projects";
 
 const TECH_ICONS = {
   React: Globe,
@@ -121,37 +122,22 @@ const handleGithubClick = (githubLink) => {
 
 const ProjectDetails = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
-  const [project, setProject] = useState(null);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const project = findProjectBySlug(slug);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    // Cari project berdasarkan slug yang di-generate dari Title
-    const selectedProject = storedProjects.find(
-      (p) => toSlug(p.Title) === slug,
-    );
-
-    if (selectedProject) {
-      const enhancedProject = {
-        ...selectedProject,
-        Features: selectedProject.Features || [],
-        TechStack: selectedProject.TechStack || [],
-        Github: selectedProject.Github || profile.social.github,
-      };
-      setProject(enhancedProject);
-    }
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [slug]);
 
   if (!project) {
     return (
       <div className="min-h-screen bg-[#011224] flex items-center justify-center">
         <div className="text-center space-y-6 animate-fadeIn">
-          <div className="w-16 h-16 md:w-24 md:h-24 mx-auto border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
           <h2 className="text-xl md:text-3xl font-bold text-white">
-            Loading Project...
+            Proyek tidak ditemukan
           </h2>
+          <Link to="/?tab=projects#Portofolio" className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-5 py-3 text-blue-200 hover:bg-white/5">
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Kembali ke Projects
+          </Link>
         </div>
       </div>
     );
@@ -185,20 +171,14 @@ const ProjectDetails = () => {
         <meta property="og:url" content={projectUrl} />
         <meta property="og:type" content="website" />
         {project.Img && <meta property="og:image" content={project.Img} />}
-        <script type="application/ld+json">{`
-          {
-            "@context": "https://schema.org",
-            "@type": "CreativeWork",
-            "name": "${project.Title}",
-            "description": "${project.Description?.replace(/"/g, '\\"')}",
-            "url": "${projectUrl}",
-            "author": {
-              "@type": "Person",
-              "name": "${profile.fullName}",
-              "url": "${profile.siteUrl}"
-            }
-          }
-        `}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: project.Title,
+          description: project.Description,
+          url: projectUrl,
+          author: { "@type": "Person", name: profile.fullName, url: profile.siteUrl },
+        })}</script>
       </Helmet>
 
       <div className="min-h-screen bg-[#011224] px-[2%] sm:px-0 relative overflow-hidden">
@@ -214,14 +194,14 @@ const ProjectDetails = () => {
         <div className="relative">
           <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-16">
             <div className="flex items-center space-x-2 md:space-x-4 mb-8 md:mb-12 animate-fadeIn">
-              <button
-                onClick={() => navigate(-1)}
-                className="group inline-flex items-center space-x-1.5 md:space-x-2 px-3 md:px-5 py-2 md:py-2.5 bg-white/5 backdrop-blur-xl rounded-xl text-white/90 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 text-sm md:text-base"
+              <Link
+                to="/?tab=projects#Portofolio"
+                className="group shrink-0 inline-flex items-center space-x-1.5 md:space-x-2 px-3 md:px-5 py-2 md:py-2.5 bg-white/5 backdrop-blur-xl rounded-xl text-white/90 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 text-sm md:text-base"
               >
                 <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
                 <span>Back</span>
-              </button>
-              <div className="flex items-center space-x-1 md:space-x-2 text-sm md:text-base text-white/50">
+              </Link>
+              <div className="min-w-0 flex items-center space-x-1 md:space-x-2 text-sm md:text-base text-white/50">
                 <span>Projects</span>
                 <ChevronRight className="w-3 h-3 md:w-4 md:h-4" />
                 <span className="text-white/90 truncate">{project.Title}</span>
@@ -231,7 +211,7 @@ const ProjectDetails = () => {
             <div className="grid lg:grid-cols-2 gap-8 md:gap-16">
               <div className="space-y-6 md:space-y-10 animate-slideInLeft">
                 <div className="space-y-4 md:space-y-6">
-                  <h1 className="text-3xl md:text-6xl font-bold bg-gradient-to-r from-blue-200 via-blue-200 to-sky-200 bg-clip-text text-transparent leading-tight">
+                  <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-200 via-blue-200 to-sky-200 bg-clip-text text-transparent leading-tight">
                     {project.Title}
                   </h1>
                   <div className="relative h-1 w-16 md:w-24">
@@ -267,7 +247,7 @@ const ProjectDetails = () => {
                     </span>
                   )}
 
-                  <a
+                  {project.Github && <a
                     href={project.Github}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -279,7 +259,7 @@ const ProjectDetails = () => {
                     <div className="absolute inset-0 translate-y-[100%] bg-gradient-to-r from-blue-600/10 to-sky-600/10 transition-transform duration-300 group-hover:translate-y-[0%]" />
                     <Github className="relative w-4 h-4 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" />
                     <span className="relative font-medium">Github</span>
-                  </a>
+                  </a>}
                 </div>
 
                 <div className="space-y-4 md:space-y-6">
@@ -299,19 +279,24 @@ const ProjectDetails = () => {
                     </p>
                   )}
                 </div>
+
+                {project.Details?.map((section) => (
+                  <section key={section.title} className="space-y-3">
+                    <h2 className="text-xl font-semibold text-blue-100">{section.title}</h2>
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph} className="text-sm leading-7 text-slate-300 md:text-base">{paragraph}</p>
+                    ))}
+                  </section>
+                ))}
               </div>
 
               <div className="space-y-6 md:space-y-10 animate-slideInRight">
-                <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#011224] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <img
-                    src={project.Img}
-                    alt={project.Title}
-                    className="w-full object-cover transform transition-transform duration-700 will-change-transform group-hover:scale-105"
-                    onLoad={() => setIsImageLoaded(true)}
-                  />
-                  <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/10 transition-colors duration-300 rounded-2xl" />
-                </div>
+                <figure>
+                  <a href={project.Img} target="_blank" rel="noopener noreferrer" aria-label={`Perbesar gambar ${project.Title} (tab baru)`} className="block overflow-hidden rounded-2xl border border-white/10 shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                    <img src={project.Img} alt={project.Title} className="w-full object-contain" />
+                  </a>
+                  {project.ImageCaption && <figcaption className="mt-3 text-xs leading-relaxed text-slate-400">{project.ImageCaption}</figcaption>}
+                </figure>
 
                 <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 border border-white/10 space-y-6 hover:border-white/20 transition-colors duration-300 group">
                   <h3 className="text-xl font-semibold text-white/90 flex items-center gap-3">
@@ -330,12 +315,26 @@ const ProjectDetails = () => {
                     </p>
                   )}
                 </div>
+
+                {project.Gallery?.length > 0 && (
+                  <section aria-labelledby="project-gallery-title" className="space-y-5">
+                    <h2 id="project-gallery-title" className="text-xl font-semibold text-blue-100">Dokumentasi proyek</h2>
+                    {project.Gallery.map((image) => (
+                      <figure key={image.src}>
+                        <a href={image.src} target="_blank" rel="noopener noreferrer" aria-label={`Perbesar: ${image.caption} (tab baru)`} className="block overflow-hidden rounded-xl border border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                          <img src={image.src} alt={image.caption} loading="lazy" className="w-full object-contain" />
+                        </a>
+                        <figcaption className="mt-2 text-xs leading-relaxed text-slate-400">{image.caption}</figcaption>
+                      </figure>
+                    ))}
+                  </section>
+                )}
               </div>
             </div>
           </div>
         </div>
 
-        <style jsx>{`
+        <style>{`
           @keyframes blob {
             0% {
               transform: translate(0px, 0px) scale(1);

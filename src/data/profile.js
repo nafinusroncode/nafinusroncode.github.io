@@ -54,6 +54,113 @@ export const profile = {
 
 export const portfolioProjects = [
   {
+    id: "pengukur-tinggi-badan-digital",
+    Img: "/projects/pengukur-tinggi-badan/rangkaian-simulasi.png",
+    ImageFit: "contain",
+    ImageCaption:
+      "Simulasi Tinkercad menggunakan Arduino Uno dan HC-SR04. Alat fisik pada proyek ini menggunakan ESP32 dan HY-SRF05.",
+    Title: "Pengukur Tinggi Badan Digital",
+    Description:
+      "Alat pengukur tinggi badan berbasis ESP32 dan sensor ultrasonik HY-SRF05 dengan tampilan LCD untuk membantu pelayanan Posyandu Gading Kulon, Donokerto, Turi, Sleman.",
+    Link: "",
+    Github: "",
+    TechStack: ["ESP32", "HY-SRF05", "LCD", "Buzzer", "Tombol", "Tinkercad"],
+    Features: [
+      "Pengukuran tinggi badan menggunakan sensor ultrasonik",
+      "Hasil pengukuran ditampilkan secara digital pada LCD",
+      "Rangkaian dilengkapi buzzer dan tombol pengoperasian",
+      "Perancangan rangkaian melalui simulasi sebelum perakitan fisik",
+      "Pengujian dan kalibrasi dengan pembanding meteran manual",
+      "Demonstrasi dan penyerahan alat kepada kader Posyandu",
+    ],
+    Details: [
+      {
+        title: "Latar belakang",
+        paragraphs: [
+          "Proyek ini dikembangkan dalam kegiatan KKN untuk membantu kader Posyandu Gading Kulon, Kalurahan Donokerto, Kecamatan Turi, Kabupaten Sleman. Pengukuran tinggi badan sebelumnya dilakukan secara manual sehingga membutuhkan ketelitian dalam membaca skala, terutama saat kunjungan Posyandu ramai.",
+          "Alat digital dirancang agar hasil pengukuran lebih mudah dibaca dan proses pengukuran dapat dilakukan secara praktis oleh kader.",
+        ],
+      },
+      {
+        title: "Cara kerja dan komponen",
+        paragraphs: [
+          "Sensor ultrasonik mengukur jarak antara posisi sensor dan bagian atas kepala. Mikrokontroler mengolah jarak tersebut berdasarkan tinggi pemasangan sensor untuk mendapatkan tinggi badan, lalu menampilkan hasilnya pada LCD.",
+          "Perangkat fisik menggunakan mikrokontroler ESP32, sensor ultrasonik HY-SRF05, LCD, buzzer, dan tombol. Gambar rangkaian pada halaman ini menunjukkan tahap simulasi di Tinkercad menggunakan Arduino Uno dan HC-SR04; komponen simulasi tersebut berbeda dari komponen alat fisik yang dijelaskan dalam artikel.",
+        ],
+      },
+      {
+        title: "Proses perancangan",
+        paragraphs: [
+          "Pengerjaan dimulai dengan observasi dan koordinasi bersama kader untuk menentukan kebutuhan serta spesifikasi alat. Rangkaian kemudian disimulasikan di Tinkercad, dilanjutkan dengan penyusunan dan pengujian program mikrokontroler.",
+          "Tahap perakitan meliputi penyolderan pin header, pemasangan komponen pada PCB, dan pembuatan rangka atau dudukan alat. Setelah dirakit, alat dikalibrasi dengan membandingkan hasil bacanya terhadap meteran manual yang digunakan kader.",
+        ],
+      },
+      {
+        title: "Pengujian dan penerapan",
+        paragraphs: [
+          "Pada pengujian yang dilaporkan dalam artikel proyek, hasil pengukuran alat digital memiliki selisih 0,1 cm dibandingkan meteran manual. Angka tersebut merupakan hasil pengujian yang dicatat dalam artikel.",
+          "Alat didemonstrasikan dan diserahkan kepada 6 kader Posyandu Gading Kulon pada 12 September 2026, disertai panduan serta sosialisasi cara pengoperasiannya.",
+        ],
+      },
+    ],
+    Gallery: [
+      {
+        src: "/projects/pengukur-tinggi-badan/perangkat-elektronik.jpeg",
+        caption: "Perakitan perangkat elektronik dan pemasangan komponen pada kotak alat.",
+      },
+      {
+        src: "/projects/pengukur-tinggi-badan/pengujian-kalibrasi.jpeg",
+        caption: "Pengujian dan kalibrasi alat menggunakan pembanding meteran manual.",
+      },
+      {
+        src: "/projects/pengukur-tinggi-badan/alat-posyandu.jpeg",
+        caption: "Alat pengukur tinggi badan digital dengan rangka dan layar LCD.",
+      },
+    ],
+  },
+  {
+    id: "iot-monitoring-sederhana",
+    Aliases: ["sistem-monitoring-iot-sederhana"],
+    Img: "/Sistem IOT.png",
+    ImageFit: "contain",
+    ImageCaption: "Simulasi rangkaian tong sampah otomatis dengan Arduino Uno, sensor ultrasonik, motor servo, dan LCD.",
+    Title: "Sistem Tong Sampah Otomatis",
+    Description:
+      "Simulasi tong sampah otomatis berbasis Arduino Uno yang mendeteksi objek menggunakan sensor ultrasonik, menggerakkan tutup melalui motor servo, serta menampilkan jarak dan status tutup pada LCD.",
+    Link: "",
+    Github: "",
+    TechStack: ["Arduino Uno", "C/C++", "HC-SR04", "Motor Servo", "LCD 16x2", "Tinkercad"],
+    Features: [
+      "Deteksi objek di depan sensor ultrasonik HC-SR04",
+      "Pembukaan tutup melalui motor servo tanpa menyentuhnya secara langsung",
+      "Penutupan kembali tutup berdasarkan pembacaan jarak",
+      "Tampilan jarak objek dan status Open / Close pada LCD 16x2",
+      "Pengaturan batas jarak melalui program Arduino",
+    ],
+    Details: [
+      {
+        title: "Gambaran proyek",
+        paragraphs: [
+          "Sistem ini dirancang untuk membuka dan menutup tutup tong sampah secara otomatis saat ada objek, seperti tangan, yang mendekati sensor. Pengguna dapat membuang sampah tanpa perlu menyentuh tutup secara langsung.",
+          "Dokumentasi yang ditampilkan merupakan simulasi rangkaian di Tinkercad. Arduino Uno berfungsi sebagai pengendali, HC-SR04 membaca jarak objek, motor servo menggerakkan tutup, dan LCD 16x2 menampilkan informasi sistem.",
+        ],
+      },
+      {
+        title: "Alur kerja sistem",
+        paragraphs: [
+          "Arduino membaca jarak dari sensor ultrasonik dan membandingkannya dengan batas jarak yang ditentukan pada program. Ketika objek berada cukup dekat, servo diarahkan ke posisi buka. Saat objek tidak lagi berada di area deteksi, servo kembali ke posisi tutup.",
+          "LCD menampilkan jarak dalam satuan sentimeter dan status tutup, seperti Bin: Open atau Bin: Close. Informasi ini membantu mengamati hubungan antara pembacaan sensor dan gerakan servo selama simulasi.",
+        ],
+      },
+      {
+        title: "Fokus perancangan",
+        paragraphs: [
+          "Proyek menggabungkan pembacaan sensor, pengambilan keputusan pada mikrokontroler, pengendalian aktuator, dan tampilan informasi. Batas jarak serta posisi servo dapat disesuaikan pada program dengan kebutuhan mekanisme tutup.",
+        ],
+      },
+    ],
+  },
+  {
     id: "rangkaian-elektronika-dasar",
     Img: "/Coding.gif",
     Title: "Rangkaian Elektronika Dasar",
@@ -66,21 +173,6 @@ export const portfolioProjects = [
       "Simulasi rangkaian sebelum implementasi",
       "Analisis tegangan, arus, dan respon komponen",
       "Dokumentasi hasil pengujian rangkaian",
-    ],
-  },
-  {
-    id: "iot-monitoring-sederhana",
-    Img: "/Sistem IOT.png",
-    Title: "Sistem Monitoring IoT Sederhana",
-    Description:
-      "Project IoT berbasis mikrokontroler untuk membaca data sensor, mengolah data, dan menampilkan hasil monitoring secara sederhana.",
-    Link: "",
-    Github: profile.social.github,
-    TechStack: ["Arduino IDE", "C/C++", "IoT"],
-    Features: [
-      "Pembacaan sensor menggunakan mikrokontroler",
-      "Pengolahan data dasar untuk monitoring",
-      "Rangkaian dan firmware yang mudah dikembangkan",
     ],
   },
   {

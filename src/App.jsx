@@ -58,7 +58,7 @@ const ProjectPageLayout = () => (
 );
 
 function App() {
-  const [showWelcome, setShowWelcome] = useState(() => window.location.pathname === "/" && !window.location.search.includes("tab=certificates"));
+  const [showWelcome, setShowWelcome] = useState(() => window.location.pathname === "/" && !["certificates", "projects"].includes(new URLSearchParams(window.location.search).get("tab")));
 
   return (
     

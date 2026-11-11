@@ -4,6 +4,7 @@ import { supabase } from "../supabase";
 import { certificates as fallbackCertificates, portfolioProjects, techStacks } from "../data/profile";
 import { useSearchParams } from "react-router-dom";
 import { mergeCertificates, readCachedCertificates } from "../utils/certificates";
+import { mergeProjects, readCachedProjects } from "../utils/projects";
 
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
@@ -123,8 +124,9 @@ export default function FullWidthTabs() {
   }, []);
 
   useEffect(() => {
-    if (searchParams.get("tab") === "certificates") {
-      setValue(1);
+    const tab = searchParams.get("tab");
+    if (tab === "certificates" || tab === "projects") {
+      setValue(tab === "certificates" ? 1 : 0);
       document.getElementById("Portofolio")?.scrollIntoView({ block: "start" });
     }
   }, [searchParams]);
@@ -151,7 +153,7 @@ export default function FullWidthTabs() {
       if (certificatesResponse.error) throw certificatesResponse.error;
 
       // Supabase mengembalikan data dalam properti 'data'
-      const projectData = projectsResponse.data?.length ? projectsResponse.data : portfolioProjects;
+      const projectData = mergeProjects(projectsResponse.data);
       const certificateData = mergeCertificates(certificatesResponse.data);
 
       setProjects(projectData);
@@ -172,14 +174,7 @@ export default function FullWidthTabs() {
 
 
   useEffect(() => {
-    // Coba ambil dari localStorage dulu untuk laod lebih cepat
-    const cachedProjects = localStorage.getItem('projects');
-
-    if (cachedProjects) {
-        const parsedProjects = JSON.parse(cachedProjects);
-        setProjects(parsedProjects.length ? parsedProjects : portfolioProjects);
-    }
-
+    setProjects(readCachedProjects());
     setCertificates(readCachedCertificates());
     
     fetchData(); // Tetap panggil fetchData untuk sinkronisasi data terbaru
@@ -325,6 +320,7 @@ export default function FullWidthTabs() {
                   >
                     <CardProject
                       Img={project.Img}
+                      ImageFit={project.ImageFit}
                       Title={project.Title}
                       Description={project.Description}
                       Link={project.Link}
