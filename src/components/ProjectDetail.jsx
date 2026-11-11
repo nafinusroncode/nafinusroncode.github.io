@@ -221,7 +221,7 @@ const ProjectDetails = () => {
                 </div>
 
                 <div className="prose prose-invert max-w-none">
-                  <p className="text-base md:text-lg text-gray-300/90 leading-relaxed">
+                  <p className="text-base md:text-lg text-gray-300/90 leading-relaxed text-justify">
                     {project.Description}
                   </p>
                 </div>
@@ -284,7 +284,7 @@ const ProjectDetails = () => {
                   <section key={section.title} className="space-y-3">
                     <h2 className="text-xl font-semibold text-blue-100">{section.title}</h2>
                     {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph} className="text-sm leading-7 text-slate-300 md:text-base">{paragraph}</p>
+                      <p key={paragraph} className="text-sm leading-7 text-slate-300 md:text-base text-justify">{paragraph}</p>
                     ))}
                   </section>
                 ))}
