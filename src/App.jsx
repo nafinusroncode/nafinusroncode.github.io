@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 const Portofolio = lazy(() => import("./Pages/Portofolio"));
 const ContactPage = lazy(() => import("./Pages/Contact"));
 const ProjectDetails = lazy(() => import("./components/ProjectDetail"));
+const CertificateDetail = lazy(() => import("./Pages/CertificateDetail"));
 const WelcomeScreen = lazy(() => import("./Pages/WelcomeScreen"));
 const NotFoundPage = lazy(() => import("./Pages/404"));
 
@@ -57,7 +58,7 @@ const ProjectPageLayout = () => (
 );
 
 function App() {
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(() => window.location.pathname === "/" && !window.location.search.includes("tab=certificates"));
 
   return (
     
@@ -79,6 +80,14 @@ function App() {
           />
 
           <Route path="/project/:slug" element={<ProjectPageLayout />} />
+          <Route path="/certificate/:id" element={
+            <>
+              <Suspense fallback={<div className="min-h-screen bg-[#011224]" />}>
+                <CertificateDetail />
+              </Suspense>
+              <Footer />
+            </>
+          } />
 
           {/* AUTH */}
           <Route path="/login" element={<Login />} />

@@ -115,7 +115,37 @@ export const portfolioProjects = [
   },
 ];
 
-export const certificates = [];
+export const certificates = [
+  {
+    id: "teknisi-pemeliharaan-elektrikal-listrik-industri-kompleks",
+    Title: "Teknisi Pemeliharaan Elektrikal - Listrik Industri Kompleks",
+    Description:
+      "Sertifikasi kompetensi bidang pemeliharaan elektrikal industri, mencakup keselamatan kerja, pembacaan gambar teknik, pengukuran listrik, serta perbaikan rangkaian listrik dasar dan kompleks.",
+    Holder: profile.fullName,
+    Issuer: "Lembaga Sertifikasi Profesi Logam dan Mesin Indonesia",
+    Authority: "Badan Nasional Sertifikasi Profesi (BNSP)",
+    IssuedAt: "22 September 2026",
+    Validity: "3 tahun",
+    Number: "33141 7412 4 0093507 2026",
+    Registration: "LOG 004 04155 2026",
+    Img: "/certificates/teknisi-pemeliharaan-elektrikal-1.jpg",
+    Document: "/certificates/teknisi-pemeliharaan-elektrikal.pdf",
+    Pages: [
+      "/certificates/teknisi-pemeliharaan-elektrikal-1.jpg",
+      "/certificates/teknisi-pemeliharaan-elektrikal-2.jpg",
+    ],
+    Competencies: [
+      "Menerapkan prinsip-prinsip K3 di tempat kerja",
+      "Menerapkan prosedur mutu",
+      "Membaca gambar teknik",
+      "Menyambung jaringan kabel listrik",
+      "Mengukur listrik / elektronik presisi",
+      "Menggunakan perkakas tangan",
+      "Memperbaiki kesalahan pada rangkaian listrik dasar",
+      "Memperbaiki kesalahan pada rangkaian listrik yang kompleks",
+    ],
+  },
+];
 
 export const techStacks = [
   { icon: "/tech/python.svg", language: "Python", initials: "PY" },

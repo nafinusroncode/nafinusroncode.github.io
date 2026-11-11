@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 
 import { supabase } from "../supabase"; 
 import { certificates as fallbackCertificates, portfolioProjects, techStacks } from "../data/profile";
+import { useSearchParams } from "react-router-dom";
+import { mergeCertificates, readCachedCertificates } from "../utils/certificates";
 
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
@@ -15,7 +17,7 @@ import CardProject from "../components/CardProject";
 import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Certificate from "../components/Certificate";
+import CardCertificate from "../components/CardCertificate";
 import { Code, Award, Boxes } from "lucide-react";
 
 
@@ -105,7 +107,8 @@ function a11yProps(index) {
 
 export default function FullWidthTabs() {
   const theme = useTheme();
-  const [value, setValue] = useState(0);
+  const [searchParams] = useSearchParams();
+  const [value, setValue] = useState(searchParams.get("tab") === "certificates" ? 1 : 0);
   const [projects, setProjects] = useState(portfolioProjects);
   const [certificates, setCertificates] = useState(fallbackCertificates);
   const [showAllProjects, setShowAllProjects] = useState(false);
@@ -118,6 +121,13 @@ export default function FullWidthTabs() {
       once: false,
     });
   }, []);
+
+  useEffect(() => {
+    if (searchParams.get("tab") === "certificates") {
+      setValue(1);
+      document.getElementById("Portofolio")?.scrollIntoView({ block: "start" });
+    }
+  }, [searchParams]);
 
 
   const fetchData = useCallback(async () => {
@@ -142,7 +152,7 @@ export default function FullWidthTabs() {
 
       // Supabase mengembalikan data dalam properti 'data'
       const projectData = projectsResponse.data?.length ? projectsResponse.data : portfolioProjects;
-      const certificateData = certificatesResponse.data?.length ? certificatesResponse.data : fallbackCertificates;
+      const certificateData = mergeCertificates(certificatesResponse.data);
 
       setProjects(projectData);
       setCertificates(certificateData);
@@ -164,17 +174,13 @@ export default function FullWidthTabs() {
   useEffect(() => {
     // Coba ambil dari localStorage dulu untuk laod lebih cepat
     const cachedProjects = localStorage.getItem('projects');
-    const cachedCertificates = localStorage.getItem('certificates');
 
     if (cachedProjects) {
         const parsedProjects = JSON.parse(cachedProjects);
         setProjects(parsedProjects.length ? parsedProjects : portfolioProjects);
     }
 
-    if (cachedCertificates) {
-        const parsedCertificates = JSON.parse(cachedCertificates);
-        setCertificates(parsedCertificates.length ? parsedCertificates : fallbackCertificates);
-    }
+    setCertificates(readCachedCertificates());
     
     fetchData(); // Tetap panggil fetchData untuk sinkronisasi data terbaru
   }, [fetchData]);
@@ -196,7 +202,7 @@ export default function FullWidthTabs() {
 
   // Sisa dari komponen (return statement) tidak ada perubahan
   return (
-    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#011224] overflow-hidden" id="Portofolio">
+    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#011224] overflow-hidden scroll-mt-24" id="Portofolio">
       {/* Header section - unchanged */}
       <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
         <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-[#073F6F] to-[#315589]">
@@ -339,15 +345,15 @@ export default function FullWidthTabs() {
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
+            <div className="container mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-5">
                 {displayedCertificates.map((certificate, index) => (
                   <div
                     key={certificate.id || index}
                     data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
                     data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
                   >
-                    <Certificate ImgSertif={certificate.Img} />
+                    <CardCertificate certificate={certificate} />
                   </div>
                 ))}
               </div>
