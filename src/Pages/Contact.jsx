@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Share2, User, Mail, MessageSquare, Send } from "lucide-react";
+import { Share2, User, Mail, Phone, MessageSquare, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 import SocialLinks from "../components/SocialLinks";
 import Komentar from "../components/Commentar";
@@ -45,10 +45,10 @@ const ContactPage = () => {
     });
 
     try {
-      if (!profile.contactEmail) {
+      if (!profile.contactFormEmail) {
         Swal.fire({
-          title: 'Email belum dikonfigurasi',
-          text: 'Silakan hubungi saya melalui LinkedIn, Instagram, GitHub, YouTube, atau TikTok yang tersedia di halaman ini.',
+          title: 'Hubungi saya secara langsung',
+          text: 'Gunakan tautan email, nomor telepon, atau media sosial yang tersedia di bagian kontak.',
           icon: 'info',
           confirmButtonColor: '#073F6F'
         });
@@ -56,7 +56,7 @@ const ContactPage = () => {
         return;
       }
 
-      const formSubmitUrl = `https://formsubmit.co/${profile.contactEmail}`;
+      const formSubmitUrl = `https://formsubmit.co/${profile.contactFormEmail}`;
       
       // Siapkan data form untuk FormSubmit
       const submitData = new FormData();
@@ -167,6 +167,15 @@ const ContactPage = () => {
                 </p>
               </div>
               <Share2 className="w-10 h-10 text-[#073F6F] opacity-50" />
+            </div>
+
+            <div className="mb-7 space-y-3 text-sm">
+              <a href={`mailto:${profile.contactEmail}`} className="flex items-start gap-3 text-slate-300 transition hover:text-blue-200">
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-blue-300" aria-hidden="true" /><span className="break-all">{profile.contactEmail}</span>
+              </a>
+              <a href={`tel:${profile.contactPhone.replace(/[^+\d]/g, "")}`} className="flex items-center gap-3 text-slate-300 transition hover:text-blue-200">
+                <Phone className="h-4 w-4 shrink-0 text-blue-300" aria-hidden="true" />{profile.contactPhone}
+              </a>
             </div>
 
             <form 

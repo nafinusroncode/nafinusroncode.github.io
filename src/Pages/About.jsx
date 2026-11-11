@@ -1,9 +1,10 @@
 import React, { useEffect, memo, useMemo, useState } from "react"
-import { FileText, Code, Award, ArrowUpRight, Sparkles, UserCheck, X } from "lucide-react"
+import { FileText, Code, Award, ArrowUpRight, GraduationCap, Sparkles, UserCheck } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { profile } from "../data/profile"
 import { readCachedProjects } from "../utils/projects"
+import AcademicRecordModal from "../components/AcademicRecordModal"
 
 // Memoized Components
 const Header = memo(() => (
@@ -23,7 +24,7 @@ const Header = memo(() => (
       data-aos-duration="800"
     >
       <Sparkles className="w-5 h-5 text-blue-400" />
-      Building electrical, IoT, and software projects
+      Power systems, IoT, and Android development
       <Sparkles className="w-5 h-5 text-blue-400" />
     </p>
   </div>
@@ -114,55 +115,7 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
   </div>
 ));
 
-const academicRecordImages = [
-  "/indeks-prestasi-1.jpeg",
-  "/indeks-prestasi-2.jpeg",
-];
-
-const AcademicRecordModal = memo(({ open, onClose }) => {
-  if (!open) return null;
-
-  return (
-    <div
-      className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-md flex items-center justify-center px-4 py-6"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="academic-record-title"
-      onClick={onClose}
-    >
-      <div
-        className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#061A2F] border border-white/10 shadow-2xl"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-white/10 bg-[#061A2F]/95 px-5 py-4 backdrop-blur-xl">
-          <h3 id="academic-record-title" className="text-xl sm:text-2xl font-bold text-white">
-            Indeks Prestasi
-          </h3>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full p-2 text-gray-300 transition hover:bg-white/10 hover:text-white"
-            aria-label="Close academic record"
-          >
-            <X className="h-6 w-6" />
-          </button>
-        </div>
-
-        <div className="space-y-5 p-4 sm:p-6">
-          {academicRecordImages.map((image, index) => (
-            <img
-              key={image}
-              src={image}
-              alt={`Indeks Prestasi ${index + 1}`}
-              className="w-full rounded-xl border border-white/10 bg-white object-contain shadow-lg"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-});
+const gpaLabel = `${profile.gpa.toFixed(2).replace(".", ",")} / ${profile.gpaScale.toFixed(2).replace(".", ",")}`;
 
 const AboutPage = () => {
   const [isAcademicRecordOpen, setIsAcademicRecordOpen] = useState(false);
@@ -269,6 +222,15 @@ const AboutPage = () => {
         {profile.aboutIntro}
                   </p>
 
+            <dl className="space-y-2 border-l-2 border-blue-400/40 pl-4 text-left text-sm text-slate-300">
+              <div>
+                <dt className="sr-only">Pendidikan</dt>
+                <dd className="flex items-start gap-2"><GraduationCap className="mt-0.5 h-4 w-4 shrink-0 text-blue-300" aria-hidden="true" />S1 {profile.department} · {profile.educationPeriod}</dd>
+              </div>
+              <div><dt className="inline text-slate-400">IPK sementara: </dt><dd className="inline font-medium text-blue-100">{gpaLabel}</dd></div>
+              <div><dt className="inline text-slate-400">Konsentrasi: </dt><dd className="inline">{profile.focus}</dd></div>
+            </dl>
+
                {/* Quote Section */}
       <div 
         className="relative bg-gradient-to-br from-[#073F6F]/5 via-transparent to-[#315589]/5 border border-gradient-to-r border-[#073F6F]/30 rounded-2xl p-4 my-6 backdrop-blur-md shadow-2xl overflow-hidden"
@@ -323,6 +285,25 @@ const AboutPage = () => {
             ))}
           </div>
         </a>
+
+        <section className="mt-12 grid gap-10 border-t border-white/10 pt-10 lg:grid-cols-2" aria-label="Keahlian dan pengalaman">
+          <div>
+            <h3 className="text-xl font-semibold text-blue-100">Kompetensi Teknik</h3>
+            <ul className="mt-4 grid gap-2 text-sm leading-relaxed text-slate-300 sm:grid-cols-2">
+              {profile.technicalSkills.map((skill) => <li key={skill} className="flex items-start gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-blue-400" aria-hidden="true" />{skill}</li>)}
+            </ul>
+            <p className="mt-5 text-sm leading-relaxed text-slate-400"><span className="font-medium text-slate-200">Pemrograman: </span>{profile.programmingLanguages.join(", ")}</p>
+          </div>
+          <div className="space-y-5">
+            <div>
+              <h3 className="text-xl font-semibold text-blue-100">Pengalaman Organisasi</h3>
+              <h4 className="mt-4 font-medium text-slate-200">{profile.organizationExperience.role}</h4>
+              <p className="mt-1 text-sm text-blue-300">{profile.organizationExperience.organization}</p>
+              <p className="mt-3 text-sm leading-7 text-slate-400">{profile.organizationExperience.description}</p>
+            </div>
+            <p className="text-sm leading-7 text-slate-400"><span className="font-medium text-slate-200">Soft skills: </span>{profile.softSkills.join(", ")}</p>
+          </div>
+        </section>
       </div>
 
       <AcademicRecordModal
@@ -330,7 +311,7 @@ const AboutPage = () => {
         onClose={() => setIsAcademicRecordOpen(false)}
       />
 
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-20px); }

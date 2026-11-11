@@ -143,7 +143,7 @@ const Home = () => {
     <>
       <Helmet>
         <title>{`${profile.fullName} - ${profile.title}`}</title>
-        <meta name="description" content={`Website portofolio ${profile.fullName}, mahasiswa ${profile.department} ${profile.university} dengan fokus ${profile.focus}.`} />
+        <meta name="description" content={profile.heroDescription} />
      <meta name="robots" content="index, follow" />
         <link rel="canonical" href={profile.siteUrl} />
         <meta property="og:title" content={`${profile.fullName} - ${profile.title}`} />
